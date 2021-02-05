@@ -14,7 +14,6 @@ import hu.csanyzeg.master.MyBaseClasses.Scene2D.PrettyStage;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.ResponseViewport;
 
 import static hu.cehessteg.SoundManager.gameMusic;
-import static hu.cehessteg.Stage.OptionsStage.highscore;
 import static hu.cehessteg.TetrisGame.muted;
 import static hu.cehessteg.TetrisGame.preferences;
 
@@ -45,7 +44,7 @@ public class GameOverStage extends PrettyStage {
     @Override
     public void assignment() {
         info = new TextBox(game, "Vége a játéknak!",TextBox.RETRO_FONT,2f);
-        pontok = new TextBox(game, "Elért pontszámod: -NULL-\nRekordod: "+highscore,TextBox.RETRO_FONT,1.5f);
+        pontok = new TextBox(game, "Ennyi pénzed van: -NULL-",TextBox.RETRO_FONT,1.5f);
         again = new TextBox(game, "Új játék",TextBox.RETRO_FONT,1.5f);
         menu = new TextBox(game, "Kilépés",TextBox.RETRO_FONT,1.5f);
 
@@ -158,7 +157,8 @@ public class GameOverStage extends PrettyStage {
     private float alpha;
     private boolean addedActors;
     private void makeStage(){
-        pontok.setText("Ennyi pénzed van: "+GameStage.point);
+        GameStage.point = 0;
+        pontok.setText("Elvesztetted az összes vagyonodat!");
         preferences.putInteger("coin",GameStage.point);
         preferences.flush();
 

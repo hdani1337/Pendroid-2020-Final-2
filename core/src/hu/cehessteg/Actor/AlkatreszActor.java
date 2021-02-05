@@ -9,11 +9,13 @@ import hu.cehessteg.Stage.GameStage;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 
+import static hu.cehessteg.Stage.OptionsStage.difficulty;
+
 public class AlkatreszActor extends OneSpriteStaticActor {
     private GameStage gameStage;
     public AlkatreszType type;
 
-    public float toresEsely = 0.3f;
+    public float toresEsely = 1f;
 
     public boolean isSelected;
 
@@ -27,7 +29,8 @@ public class AlkatreszActor extends OneSpriteStaticActor {
         if(Math.random() < toresEsely) torott = true;
         else torott = false;
         sprite.setTexture(game.getMyAssetManager().getTexture(getHash(type, torott)));
-        setSize(180,(180.0f/getHeight())*getHeight());
+        float scale = 180.0f/getHeight() ;
+        setSize(180,scale*getHeight());
         setY(gameStage.szalagok.get(0).getY() + gameStage.szalagok.get(0).getHeight()/2 - this.getHeight()/2);
         setX(gameStage.getViewport().getWorldWidth()+125+new Random().nextInt(500));
         addListeners();
@@ -108,11 +111,14 @@ public class AlkatreszActor extends OneSpriteStaticActor {
     @Override
     public void act(float delta) {
         super.act(delta);
-        setX(getX()-2);
-        setZIndex(10000);
-        if(getX() < -getWidth()){
-            GameStage.point--;
-            remove();
+        if(!GameStage.isPaused && !GameStage.isGameOver) {
+            setX(getX() - difficulty * 2);
+            setZIndex(10000);
+            if (getX() < -getWidth()) {
+                GameStage.point--;
+                gameStage.alkatreszek.remove(this);
+                remove();
+            }
         }
     }
 }

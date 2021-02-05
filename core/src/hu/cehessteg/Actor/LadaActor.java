@@ -47,7 +47,7 @@ public class LadaActor extends MyGroup {
                 if(LadaActor.this.type == AlkatreszType.TRASH){
                     gameStage.selectedActor.remove();
                 }else{
-                    if(LadaActor.this.type == gameStage.selectedActor.type){
+                    if(LadaActor.this.type == gameStage.selectedActor.type && !gameStage.selectedActor.torott){
                         switch (type){
                             case CPU:
                                 Stock.cpuCount++;

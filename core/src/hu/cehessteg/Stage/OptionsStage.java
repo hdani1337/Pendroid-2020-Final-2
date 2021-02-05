@@ -36,8 +36,6 @@ public class OptionsStage extends PrettyStage {
     }
 
     public static int difficulty = preferences.getInteger("difficulty");
-    public static int size = preferences.getInteger("size");
-    public static long highscore = preferences.getLong("highscore");
 
     private Logo optionsLogo;
 
@@ -45,8 +43,6 @@ public class OptionsStage extends PrettyStage {
     private OneSpriteStaticActor bg;
     private OptionSwitch muteButton;
     private Slider difficultySlider;
-    private Slider sizeSlider;
-    private TextBox sizeText;
     private TextBox difficultyText;
 
     private boolean setBack;
@@ -63,21 +59,9 @@ public class OptionsStage extends PrettyStage {
             SoundManager.menuMusic.play();*/
         setBack = false;
         if(difficulty == 0) difficulty = 1;
-        if(size == 0) size = 10;
         backButton = new OneSpriteStaticActor(game,BACKBUTTON_TEXTURE);
         muteButton = new OptionSwitch(game, OptionSwitchType.MUTE);
         optionsLogo = new Logo(game, Logo.LogoType.OPTIONS);
-        sizeText = new TextBox(game,"Pálya szélessége:\n"+size+"\n", TextBox.RETRO_FONT,1.25f);
-        sizeSlider = new Slider(10, 25, 1, false, getSliderStyle());
-        sizeSlider.setValue(size);
-        sizeSlider.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                size = (int) sizeSlider.getValue();
-                sizeText.setText("Pálya szélessége:\n"+size+"\n");
-                setPositions();
-            }
-        });
 
         difficultyText = new TextBox(game,"Nehézség:\nNormál\n", TextBox.RETRO_FONT,1.25f);
         difficultySlider = new Slider(1, 4, 1, false, getSliderStyle());
@@ -105,7 +89,6 @@ public class OptionsStage extends PrettyStage {
     @Override
     public void setSizes() {
         backButton.setSize(180,180);
-        sizeSlider.setWidth(300);
         difficultySlider.setWidth(200);
         bg.setSize(getViewport().getWorldWidth(),getViewport().getWorldHeight());
     }
@@ -117,8 +100,6 @@ public class OptionsStage extends PrettyStage {
         difficultySlider.setPosition(getViewport().getWorldWidth()/2-difficultySlider.getWidth()/2,getViewport().getWorldHeight()*0.425f);
         difficultyText.setPosition(difficultySlider.getX() + difficultySlider.getWidth()/2-difficultyText.getWidth()/2,difficultySlider.getY()-20);
         muteButton.setPosition(getViewport().getWorldWidth()/2-muteButton.getWidth()/2,getViewport().getWorldHeight()*0.625f);
-        sizeSlider.setPosition(getViewport().getWorldWidth()/2-sizeSlider.getWidth()/2,getViewport().getWorldHeight()*0.225f);
-        sizeText.setPosition(sizeSlider.getX() + sizeSlider.getWidth()/2-sizeText.getWidth()/2,sizeSlider.getY()-20);
     }
 
     @Override
@@ -130,7 +111,6 @@ public class OptionsStage extends PrettyStage {
                 super.clicked(event, x, y);
                 preferences.putInteger("difficulty",difficulty);
                 preferences.putBoolean("muted",muted);
-                preferences.putInteger("size",size);
                 preferences.flush();
                 setBack = true;
             }
@@ -150,8 +130,6 @@ public class OptionsStage extends PrettyStage {
         addActor(difficultySlider);
         addActor(muteButton);
         addActor(backButton);
-        addActor(sizeText);
-        addActor(sizeSlider);
     }
     //endregion
     //region Act metódusai
@@ -202,10 +180,8 @@ public class OptionsStage extends PrettyStage {
         optionsLogo.setAlpha(alpha);
         backButton.setAlpha(alpha);
         muteButton.setAlpha(alpha);
-        sizeSlider.setColor(1,1,1,alpha);
         difficultySlider.setColor(1,1,1,alpha);
         difficultyText.setAlpha(alpha);
-        sizeText.setAlpha(alpha);
     }
     //endregion
 

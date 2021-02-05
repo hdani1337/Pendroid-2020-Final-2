@@ -10,12 +10,14 @@ import hu.cehessteg.Actor.LadaActor;
 import hu.cehessteg.Actor.SzalagActor;
 import hu.cehessteg.SoundManager;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
+import hu.csanyzeg.master.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.ResponseViewport;
 import hu.csanyzeg.master.MyBaseClasses.SimpleWorld.PrettySimpleStage;
 import hu.csanyzeg.master.MyBaseClasses.Timers.TickTimer;
 import hu.csanyzeg.master.MyBaseClasses.Timers.TickTimerListener;
 import hu.csanyzeg.master.MyBaseClasses.Timers.Timer;
 
+import static hu.cehessteg.Stage.OptionsStage.difficulty;
 import static hu.cehessteg.TetrisGame.muted;
 import static hu.cehessteg.TetrisGame.preferences;
 
@@ -26,6 +28,8 @@ public class GameStage extends PrettySimpleStage {
     public static boolean isGameOver;
 
     public AlkatreszActor selectedActor;
+
+    private OneSpriteStaticActor hatter;
 
     public ArrayList<SzalagActor> szalagok;
     public ArrayList<LadaActor> ladak;
@@ -41,6 +45,8 @@ public class GameStage extends PrettySimpleStage {
 
     @Override
     public void assignment() {
+        if(difficulty == 0) difficulty = 2;
+        hatter = new OneSpriteStaticActor(game,"hatter.png");
         //builderActor = new BuilderActor(game,null);
         random = new Random();
         SoundManager.assign();
@@ -59,6 +65,7 @@ public class GameStage extends PrettySimpleStage {
 
     @Override
     public void setSizes() {
+        hatter.setSize(getViewport().getWorldWidth(),getViewport().getWorldHeight());
         for (LadaActor a : ladak){
             a.setSize(220,220);
         }
@@ -83,9 +90,10 @@ public class GameStage extends PrettySimpleStage {
 
     @Override
     public void addActors() {
+        addActor(hatter);
         for (SzalagActor a : szalagok) {
             addActor(a);
-            a.setZIndex(0);
+            a.setZIndex(10);
         }
         for (LadaActor a : ladak){
             addActor(a);
@@ -108,7 +116,7 @@ public class GameStage extends PrettySimpleStage {
                 AlkatreszActor actor = new AlkatreszActor(game,AlkatreszType.values()[random.nextInt(4)],GameStage.this);
                 alkatreszek.add(actor);
                 addActor(actor);
-                if(Math.random() <= 0.03f) point -= Math.random()*5;
+                if(Math.random() <= 0.03f && point >= 5) point -= Math.random()*5;
             }
         }));
     }
@@ -116,9 +124,10 @@ public class GameStage extends PrettySimpleStage {
     @Override
     public void act(float delta) {
         super.act(delta);
-        if(!isPaused) {
+        if(point < 0) isGameOver = true;
+        if(!isPaused && !isGameOver) {
             for (SzalagActor a : szalagok) {
-                a.setX(a.getX()-2);
+                a.setX(a.getX()-difficulty*2);
             }
         }
     }

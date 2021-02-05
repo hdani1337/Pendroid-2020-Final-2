@@ -13,8 +13,6 @@ import hu.cehessteg.Screen.MenuScreen;
 import hu.cehessteg.Stage.LoadingStage;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 
-import static hu.cehessteg.Stage.OptionsStage.difficulty;
-import static hu.cehessteg.Stage.OptionsStage.size;
 
 public class TetrisGame extends MyGame {
 
@@ -37,7 +35,7 @@ public class TetrisGame extends MyGame {
 		try {
 			preferences = Gdx.app.getPreferences("tetrisSave");
 			muted = preferences.getBoolean("muted");
-			Gdx.app.getGraphics().setTitle("Tetris");
+			Gdx.app.getGraphics().setTitle("DontoGame");
 			Gdx.app.getGraphics().setResizable(false);
 
 			//setDisplay();
