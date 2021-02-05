@@ -30,7 +30,7 @@ public class GameStage extends PrettySimpleStage {
     public ArrayList<AlkatreszActor> alkatreszek;
 
     public GameStage(MyGame game) {
-        super(new ResponseViewport(1280),game);
+        super(new ResponseViewport(800),game);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class GameStage extends PrettySimpleStage {
     @Override
     public void setSizes() {
         for (LadaActor a : ladak){
-            a.setSize(360,360);
+            a.setSize(220,220);
         }
     }
 
@@ -92,44 +92,16 @@ public class GameStage extends PrettySimpleStage {
         addTimers();
     }
 
-    boolean foglalt = false;
-
     private void addTimers(){
-        addTimer(new TickTimer(1,true,new TickTimerListener(){
+        addTimer(new TickTimer(3,true,new TickTimerListener(){
             @Override
             public void onTick(Timer sender, float correction) {
                 super.onTick(sender, correction);
-                generatePart();
+                AlkatreszActor actor = new AlkatreszActor(game,AlkatreszType.values()[new Random().nextInt(4)],GameStage.this);
+                alkatreszek.add(actor);
+                addActor(actor);
             }
         }));
-    }
-
-    private void generatePart(){
-        foglalt = false;
-        Random r = new Random();
-        ArrayList<SzalagActor> visibleSzalag = new ArrayList<>();
-        for (SzalagActor sz : szalagok) if(sz.isVisible()) visibleSzalag.add(sz);
-
-        SzalagActor randomSzalag = visibleSzalag.get(r.nextInt(visibleSzalag.size()));
-        AlkatreszType randomType = AlkatreszType.values()[r.nextInt(4)];
-        int randomPos = r.nextInt(4);
-        System.out.println(randomPos);
-
-        AlkatreszActor actor = new AlkatreszActor(game,randomType,randomSzalag,randomPos,this);
-
-        if(alkatreszek.size() > 0) {
-            for (int i = 0; i < alkatreszek.size(); i++){
-                if(alkatreszek.get(i).posID == randomPos && alkatreszek.get(i).szalagActor == randomSzalag){
-                    foglalt = true;
-                    break;
-                }
-            }
-        }
-
-        if(!foglalt) {
-            alkatreszek.add(actor);
-            addActor(actor);
-        }else generatePart();
     }
 
     @Override

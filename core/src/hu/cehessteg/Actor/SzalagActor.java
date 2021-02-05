@@ -24,7 +24,7 @@ public class SzalagActor extends OneSpriteStaticActor {
         super.act(delta);
         if(getX() <= -getWidth()){
             setX(stage.szalagok.get(getLastId()).getX()+getWidth());
-
+            setZIndex(0);
         }
     }
 
