@@ -6,6 +6,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 
+import static hu.cehessteg.Stage.GameStage.isGameOver;
+import static hu.cehessteg.Stage.GameStage.isPaused;
+
 public class BuilderActor extends OneSpriteStaticActor {
     public Computer computer;
 
@@ -20,7 +23,7 @@ public class BuilderActor extends OneSpriteStaticActor {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                computer.build();
+                if(!isGameOver && !isPaused) computer.build();
             }
         });
     }

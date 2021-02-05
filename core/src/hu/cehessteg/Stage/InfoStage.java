@@ -59,7 +59,7 @@ public class InfoStage extends PrettyStage {
                 "a törötteket pedig a kukába kell helyezni.\n" +
                 "Vigyázz, mert ha rossz helyre rakod, vagy kihagyod,\n" +
                 "pénzt fogsz rajta veszteni!\n\n" +
-                "Kellemes játékot kíván a Pendroid csapata!";
+                "Kellemes játékot kíván a Céhessteg csapata!";
 
         text = new MyLabel(game, infoText, new Label.LabelStyle(game.getMyAssetManager().getFont(RETRO_FONT), Color.WHITE)) {
             @Override

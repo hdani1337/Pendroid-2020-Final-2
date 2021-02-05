@@ -46,24 +46,28 @@ public class LadaActor extends MyGroup {
                 super.clicked(event, x, y);
                 if(LadaActor.this.type == AlkatreszType.TRASH){
                     gameStage.selectedActor.remove();
+                    gameStage.point++;
                 }else{
-                    if(LadaActor.this.type == gameStage.selectedActor.type && !gameStage.selectedActor.torott){
-                        switch (type){
-                            case CPU:
-                                Stock.cpuCount++;
-                                break;
-                            case GPU:
-                                Stock.gpuCount++;
-                                break;
-                            case RAM:
-                                Stock.ramCount++;
-                                break;
-                            case PSU:
-                                Stock.psuCount++;
-                                break;
-                        }
-                    }else GameStage.point--;
-                    gameStage.selectedActor.remove();
+                    if(gameStage.selectedActor.type != null) {
+                        if (LadaActor.this.type == gameStage.selectedActor.type && !gameStage.selectedActor.torott) {
+                            switch (type) {
+                                case CPU:
+                                    Stock.cpuCount++;
+                                    break;
+                                case GPU:
+                                    Stock.gpuCount++;
+                                    break;
+                                case RAM:
+                                    Stock.ramCount++;
+                                    break;
+                                case PSU:
+                                    Stock.psuCount++;
+                                    break;
+                            }
+                            GameStage.point++;
+                        } else GameStage.point--;
+                        gameStage.selectedActor.remove();
+                    }
                 }
                 gameStage.selectedActor = null;
             }

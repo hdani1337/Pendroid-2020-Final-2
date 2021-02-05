@@ -96,7 +96,6 @@ public class GameStage extends PrettySimpleStage {
     @Override
     public void addActors() {
         addActor(hatter);
-        addActor(builderActor);
         for (SzalagActor a : szalagok) {
             addActor(a);
             a.setZIndex(10);
@@ -104,6 +103,7 @@ public class GameStage extends PrettySimpleStage {
         for (LadaActor a : ladak){
             addActor(a);
         }
+        addActor(builderActor);
     }
 
 
@@ -135,6 +135,7 @@ public class GameStage extends PrettySimpleStage {
             for (SzalagActor a : szalagok) {
                 a.setX(a.getX()-difficulty*3);
             }
+            builderActor.setZIndex(100000);
         }
 
 

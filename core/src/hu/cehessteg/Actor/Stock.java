@@ -3,10 +3,10 @@ package hu.cehessteg.Actor;
 import hu.cehessteg.Stage.GameStage;
 
 public class Stock {
-    public static int cpuCount;
-    public static int gpuCount;
-    public static int ramCount;
-    public static int psuCount;
+    public static int cpuCount = 0;
+    public static int gpuCount = 0;
+    public static int ramCount = 0;
+    public static int psuCount = 0;
 
     public static void buy(Computer computer) {
         cpuCount -= computer.needCPU;
