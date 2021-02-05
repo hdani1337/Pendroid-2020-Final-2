@@ -44,11 +44,12 @@ public class LadaActor extends MyGroup {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                if(LadaActor.this.type == AlkatreszType.TRASH){
-                    gameStage.selectedActor.remove();
-                    gameStage.point++;
-                }else{
-                    if(gameStage.selectedActor != null) {
+                if (gameStage.selectedActor != null) {
+                    if (LadaActor.this.type == AlkatreszType.TRASH) {
+                        gameStage.selectedActor.remove();
+                        gameStage.point++;
+                    } else {
+
                         if (LadaActor.this.type == gameStage.selectedActor.type && !gameStage.selectedActor.torott) {
                             switch (type) {
                                 case CPU:
@@ -68,8 +69,8 @@ public class LadaActor extends MyGroup {
                         } else GameStage.point--;
                         gameStage.selectedActor.remove();
                     }
+                    gameStage.selectedActor = null;
                 }
-                gameStage.selectedActor = null;
             }
         });
     }
