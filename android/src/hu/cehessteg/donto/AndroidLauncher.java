@@ -1,4 +1,4 @@
-package hu.cehessteg.tetris;
+package hu.cehessteg.donto;
 
 import android.annotation.TargetApi;
 import android.os.Build;

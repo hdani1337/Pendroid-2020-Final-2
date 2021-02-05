@@ -12,7 +12,7 @@ public class GameStage extends PrettySimpleStage {
     public static int point;
 
     public GameStage(MyGame game) {
-        super(new ResponseViewport(OptionsStage.size),game);
+        super(new ResponseViewport(800),game);
     }
 
     @Override
