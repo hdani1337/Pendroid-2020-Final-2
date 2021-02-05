@@ -78,7 +78,7 @@ public class PauseStage extends PrettyStage {
                 super.clicked(event, x, y);
                 if(getScreen() != null) {
                     if (getScreen() instanceof GameScreen){}
-
+                        GameStage.isPaused = false;
                 }
             }
         });
@@ -147,8 +147,8 @@ public class PauseStage extends PrettyStage {
         super.act(delta);
         if(getScreen() != null) {
             if (getScreen() instanceof GameScreen) {
-                /*if (Board.isPaused && !Board.isGameOver) pause(gameMusic);
-                else if (!Board.isPaused && addedActors) resume(gameMusic);*/
+                if (GameStage.isPaused && !GameStage.isGameOver) pause(gameMusic);
+                else if (!GameStage.isPaused && addedActors) resume(gameMusic);
             }
         }
     }

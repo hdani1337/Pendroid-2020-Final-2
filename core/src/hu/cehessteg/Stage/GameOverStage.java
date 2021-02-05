@@ -147,7 +147,10 @@ public class GameOverStage extends PrettyStage {
          * **/
         if(getScreen() != null){
             if(getScreen() instanceof GameScreen){
-
+                if(GameStage.isGameOver && !GameStage.isPaused){
+                    if(gameMusic != null) gameMusic.stop();
+                    makeStage();
+                }
             }
         }
     }

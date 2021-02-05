@@ -30,7 +30,7 @@ public class Pause extends OneSpriteStaticActor {
                 if(getStage() != null && getStage() instanceof MyStage) {
                     if (((MyStage) getStage()).getScreen() != null) {
                        if (((MyStage) getStage()).getScreen() instanceof GameScreen){}
-
+                            GameStage.isPaused = true;
                     }
                 }
             }

@@ -32,7 +32,7 @@ public class TetrisGame extends MyGame {
 		super.create();
 		SoundManager.game = this;
 		setLoadingStage(new LoadingStage(this));
-		setScreen(new IntroScreen(this));
+		setScreen(new GameScreen(this));
 		try {
 			preferences = Gdx.app.getPreferences("tetrisSave");
 			muted = preferences.getBoolean("muted");

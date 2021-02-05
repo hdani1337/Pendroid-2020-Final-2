@@ -16,7 +16,6 @@ public class HudStage extends PrettyStage {
     //public static BallStage stage;//Hátha kell a GameStageből valami
     private Pause pause;
     private TextBox scoreBoard;
-    private OneSpriteStaticActor frameActor;
 
     public HudStage(MyGame game) {
         super(game);
@@ -26,20 +25,17 @@ public class HudStage extends PrettyStage {
     public void assignment() {
         pause = new Pause(game);
         scoreBoard = new TextBox(game,"  0  ",TextBox.RETRO_FONT,1.5f);
-        frameActor = new OneSpriteStaticActor(game,"pic/keret.png");
     }
 
     @Override
     public void setSizes() {
         pause.setSize(120,120);
-        frameActor.setSize((getViewport().getWorldWidth()/frameActor.getWidth())*frameActor.getWidth(),(getViewport().getWorldWidth()/frameActor.getWidth())*frameActor.getHeight());
     }
 
     @Override
     public void setPositions() {
-        frameActor.setY(getViewport().getWorldHeight()-frameActor.getHeight());
-        pause.setPosition(getViewport().getWorldWidth()-pause.getWidth()-36,frameActor.getY() + (getViewport().getWorldHeight()-frameActor.getY())/2 - pause.getHeight()/2);
-        scoreBoard.setPosition(getViewport().getWorldWidth()/2-scoreBoard.getWidth()/2,frameActor.getY() + (getViewport().getWorldHeight()-frameActor.getY())/2 - scoreBoard.getHeight()/2);
+        pause.setPosition(getViewport().getWorldWidth()-pause.getWidth()-28,getViewport().getWorldHeight()-pause.getHeight()-28);
+        scoreBoard.setPosition(getViewport().getWorldWidth()/2-scoreBoard.getWidth()/2,pause.getY() + (getViewport().getWorldHeight()-pause.getY())/2 - scoreBoard.getHeight()/2);
     }
 
     @Override
@@ -54,7 +50,6 @@ public class HudStage extends PrettyStage {
 
     @Override
     public void addActors() {
-        addActor(frameActor);
         addActor(scoreBoard);
         addActor(pause);
     }
