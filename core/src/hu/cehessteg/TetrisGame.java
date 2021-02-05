@@ -29,11 +29,10 @@ public class TetrisGame extends MyGame {
 	@Override
 	public void create() {
 		super.create();
-		SoundManager.game = this;
 		setLoadingStage(new LoadingStage(this));
-		setScreen(new MenuScreen(this));
+		setScreen(new IntroScreen(this));
 		try {
-			preferences = Gdx.app.getPreferences("tetrisSave");
+			preferences = Gdx.app.getPreferences("dontoSave");
 			muted = preferences.getBoolean("muted");
 			Gdx.app.getGraphics().setTitle("DontoGame");
 			Gdx.app.getGraphics().setResizable(false);

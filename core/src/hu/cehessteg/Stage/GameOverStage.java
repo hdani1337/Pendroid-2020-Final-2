@@ -6,14 +6,12 @@ import com.badlogic.gdx.utils.Align;
 
 import hu.cehessteg.Hud.TextBox;
 import hu.cehessteg.Screen.GameScreen;
-import hu.cehessteg.SoundManager;
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.PrettyStage;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.ResponseViewport;
 
-import static hu.cehessteg.SoundManager.gameMusic;
 import static hu.cehessteg.TetrisGame.muted;
 import static hu.cehessteg.TetrisGame.preferences;
 
@@ -88,7 +86,6 @@ public class GameOverStage extends PrettyStage {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                if(!muted && gameMusic != null) gameMusic.stop();
                 game.setScreenBackByStackPopWithPreloadAssets(new LoadingStage(game));
                 preferences.putLong("coin", 0);
                 preferences.flush();
@@ -147,7 +144,6 @@ public class GameOverStage extends PrettyStage {
         if(getScreen() != null){
             if(getScreen() instanceof GameScreen){
                 if(GameStage.isGameOver && !GameStage.isPaused){
-                    if(gameMusic != null) gameMusic.stop();
                     makeStage();
                 }
             }
@@ -159,7 +155,7 @@ public class GameOverStage extends PrettyStage {
     private void makeStage(){
         GameStage.point = 0;
         pontok.setText("Elvesztetted az összes vagyonodat!");
-        preferences.putInteger("coin",GameStage.point);
+        preferences.putLong("coin",GameStage.point);
         preferences.flush();
 
 
@@ -170,7 +166,6 @@ public class GameOverStage extends PrettyStage {
         //Adjuk hozzá a gombokat a stagehez ha még nincsenek rajta
         if(!addedActors) {
             addActors();
-            if(SoundManager.loseSound != null && !muted) SoundManager.loseSound.play();
         }
 
         //Áttűnés

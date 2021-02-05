@@ -6,14 +6,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import hu.cehessteg.Hud.TextBox;
 import hu.cehessteg.Screen.GameScreen;
-import hu.cehessteg.SoundManager;
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.PrettyStage;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.ResponseViewport;
 
-import static hu.cehessteg.SoundManager.gameMusic;
 import static hu.cehessteg.TetrisGame.muted;
 import static hu.cehessteg.TetrisGame.preferences;
 
@@ -45,7 +43,7 @@ public class PauseStage extends PrettyStage {
     @Override
     public void assignment() {
         info = new TextBox(game, "Megállítva",TextBox.RETRO_FONT,2f);
-        pontok = new TextBox(game, "Pontszámok\n"+GameStage.point,TextBox.RETRO_FONT,1.5f);
+        pontok = new TextBox(game, "Pénzed\n"+GameStage.point,TextBox.RETRO_FONT,1.5f);
         again = new TextBox(game, "Folytatás",TextBox.RETRO_FONT,1.5f);
         menu = new TextBox(game, "Kilépés",TextBox.RETRO_FONT,1.5f);
 
@@ -87,9 +85,6 @@ public class PauseStage extends PrettyStage {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                if(!muted && gameMusic != null) {
-                    gameMusic.stop();
-                }
                 game.setScreenBackByStackPopWithPreloadAssets(new LoadingStage(game));
                 preferences.putLong("coin", GameStage.point);
                 preferences.flush();
@@ -147,24 +142,23 @@ public class PauseStage extends PrettyStage {
         super.act(delta);
         if(getScreen() != null) {
             if (getScreen() instanceof GameScreen) {
-                if (GameStage.isPaused && !GameStage.isGameOver) pause(gameMusic);
-                else if (!GameStage.isPaused && addedActors) resume(gameMusic);
+                if (GameStage.isPaused && !GameStage.isGameOver) pause();
+                else if (!GameStage.isPaused && addedActors) resume();
             }
         }
     }
 
     @Deprecated
-    private void pause(Music music){
+    private void pause(){
         if(getScreen() != null && (getScreen() instanceof GameScreen)){
-           if(!pontok.text.equals("Pontszámod: "+GameStage.point)) {
-                pontok.setText("Pontszámod: "+GameStage.point);
+           if(!pontok.text.equals("Pénzed: "+GameStage.point)) {
+                pontok.setText("Pénzed: "+GameStage.point);
                 pontok.setX(getViewport().getWorldWidth()/2-pontok.getWidth()/2);
             }
         }
         //Adjuk hozzá a gombokat a stagehez ha még nincsenek rajta
         if(!addedActors) {
             addActors();
-            if(music != null && !muted) music.pause();
         }
 
         //Áttűnés
@@ -182,8 +176,7 @@ public class PauseStage extends PrettyStage {
     }
 
     @Deprecated
-    private void resume(Music music){
-        if(music != null && !muted) music.play();
+    private void resume(){
         //Áttűnéssel tűnnek el a stageről
         if(alpha > 0.05f) {
             //if(!music.isPlaying()) music.play();

@@ -24,4 +24,14 @@ public class BuilderActor extends OneSpriteStaticActor {
             }
         });
     }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        if(computer.isBuildable()){
+            setAlpha(1);
+        }else{
+            setAlpha(0.4f);
+        }
+    }
 }

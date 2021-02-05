@@ -17,15 +17,19 @@ public class Computer {
     }
 
     public void build(){
-        boolean error = false;
-
-        if(Stock.cpuCount < needCPU) error = true;
-        if(Stock.gpuCount < needGPU) error = true;
-        if(Stock.ramCount < needRAM) error = true;
-        if(Stock.psuCount < needPSU) error = true;
-
-        if(!error){
+        if(!isBuildable()){
             Stock.buy(this);
         }
+    }
+
+    public boolean isBuildable(){
+        boolean error = true;
+
+        if(Stock.cpuCount < needCPU) error = false;
+        if(Stock.gpuCount < needGPU) error = false;
+        if(Stock.ramCount < needRAM) error = false;
+        if(Stock.psuCount < needPSU) error = false;
+
+        return error;
     }
 }

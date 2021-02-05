@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 
 import hu.cehessteg.Hud.Logo;
-import hu.cehessteg.SoundManager;
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.OneSpriteStaticActor;
@@ -19,12 +18,10 @@ import hu.csanyzeg.master.MyBaseClasses.UI.MyLabel;
 
 import static hu.cehessteg.Hud.TextBox.RETRO_FONT;
 import static hu.cehessteg.Hud.TextBox.TEXTBOX_TEXTURE;
-import static hu.cehessteg.Hud.TextBox.VERDANA_FONT;
 import static hu.cehessteg.Stage.MenuStage.BACKGROUND_TEXTURE;
-import static hu.cehessteg.TetrisGame.muted;
 
 public class InfoStage extends PrettyStage {
-    public static String BACKBUTTON_TEXTURE = "buttons/back2.png";
+    public static String BACKBUTTON_TEXTURE = "nyil2.png";
 
     public static AssetList assetList = new AssetList();
     static {
@@ -77,7 +74,7 @@ public class InfoStage extends PrettyStage {
 
     @Override
     public void setSizes() {
-        infoLogo.setSize(infoLogo.getWidth()*0.9f,infoLogo.getHeight()*0.9f);
+        infoLogo.setSize(infoLogo.getWidth()*0.7f,infoLogo.getHeight()*0.7f);
         textBg.setSize(text.getWidth()+120,text.getHeight()+140);
         back.setSize(180,180);
         bg.setSize(getViewport().getWorldWidth(),getViewport().getWorldHeight());

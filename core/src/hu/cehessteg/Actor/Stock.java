@@ -15,4 +15,11 @@ public class Stock {
         psuCount -= computer.needPSU;
         GameStage.point += 25;
     }
+
+    public static void reset(){
+        cpuCount = 0;
+        gpuCount = 0;
+        ramCount = 0;
+        psuCount = 0;
+    }
 }

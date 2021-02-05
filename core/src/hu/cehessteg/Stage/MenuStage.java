@@ -1,7 +1,9 @@
 package hu.cehessteg.Stage;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import java.util.ArrayList;
@@ -11,21 +13,13 @@ import hu.cehessteg.Hud.TextBox;
 import hu.cehessteg.Screen.GameScreen;
 import hu.cehessteg.Screen.InfoScreen;
 import hu.cehessteg.Screen.OptionsScreen;
-import hu.cehessteg.SoundManager;
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.PrettyStage;
-import hu.csanyzeg.master.MyBaseClasses.SimpleWorld.PositionRule;
-import hu.csanyzeg.master.MyBaseClasses.SimpleWorld.PrettySimpleStage;
-import hu.csanyzeg.master.MyBaseClasses.SimpleWorld.ShapeType;
-import hu.csanyzeg.master.MyBaseClasses.SimpleWorld.SimpleBodyType;
-import hu.csanyzeg.master.MyBaseClasses.SimpleWorld.SimpleWorldHelper;
-import hu.csanyzeg.master.MyBaseClasses.Timers.TickTimer;
-import hu.csanyzeg.master.MyBaseClasses.Timers.TickTimerListener;
-import hu.csanyzeg.master.MyBaseClasses.Timers.Timer;
+import hu.csanyzeg.master.MyBaseClasses.UI.MyLabel;
 
-import static hu.cehessteg.TetrisGame.muted;
+import static hu.cehessteg.Hud.TextBox.RETRO_FONT;
 
 
 //TODO TEXTÚRÁK BEHELYETTESÍTÉSE HA KÉSZ LESZNEK
@@ -36,7 +30,7 @@ public class MenuStage extends PrettyStage {
     public static final String OPTIONSBUTTON_TEXTURE = "buttons/options.png";
     public static final String INFOBUTTON_TEXTURE = "buttons/info.png";
     public static final String EXITBUTTON_TEXTURE = "buttons/close.png";
-    public static final String BACKGROUND_TEXTURE = "pic/hatter.png";
+    public static final String BACKGROUND_TEXTURE = "hatter.png";
 
     public static AssetList assetList = new AssetList();
     static {
@@ -55,16 +49,22 @@ public class MenuStage extends PrettyStage {
     private OneSpriteStaticActor exit;
     private OneSpriteStaticActor bg;
     private OneSpriteStaticActor gephaz;
+    private OneSpriteStaticActor penzActor;
+    private MyLabel penzLabel;
 
     private ArrayList<OneSpriteStaticActor> menuElements;
 
     @Override
     public void assignment() {
-        //SoundManager.assign();
         bg = new OneSpriteStaticActor(game,BACKGROUND_TEXTURE);
-        /*if(!muted && SoundManager.menuMusic != null)
-            SoundManager.menuMusic.play();*/
         menuElements = new ArrayList<>();
+        penzActor = new OneSpriteStaticActor(game,"coin.png");
+        penzLabel = new MyLabel(game, GameStage.point+"", new Label.LabelStyle(game.getMyAssetManager().getFont(RETRO_FONT), Color.WHITE)) {
+            @Override
+            public void init() {
+
+            }
+        };
         logo = new Logo(game, Logo.LogoType.MENU);
         start = new OneSpriteStaticActor(game, STARTBUTTON_TEXTURE);
         info = new OneSpriteStaticActor(game, INFOBUTTON_TEXTURE);
@@ -77,11 +77,11 @@ public class MenuStage extends PrettyStage {
         menuElements.add(logo);
         menuElements.add(exit);
         menuElements.add(info);
-
     }
 
     @Override
     public void setSizes() {
+        penzActor.setSize(96,96);
         exit.setSize(exit.getWidth()*0.5f,exit.getHeight()*0.5f);
         bg.setSize(getViewport().getWorldWidth(),getViewport().getWorldHeight());
         gephaz.setSize(gephaz.getWidth()*0.85f,gephaz.getHeight()*0.85f);
@@ -92,18 +92,23 @@ public class MenuStage extends PrettyStage {
 
     @Override
     public void setPositions() {
-        logo.setPosition(getViewport().getWorldWidth()/2-logo.getWidth()/2,getViewport().getWorldHeight()-logo.getHeight()*1.5f);
+        penzActor.setPosition(12,getViewport().getWorldHeight()-penzActor.getHeight()-12);
 
-        gephaz.setPosition(getViewport().getWorldWidth()-gephaz.getWidth()*1.15f,getViewport().getWorldHeight()/2-gephaz.getHeight()/2);
+        penzLabel.setAlignment(0);
+        penzLabel.setPosition(penzActor.getX()+penzActor.getWidth()+5,penzActor.getY()+penzActor.getHeight()/2-penzLabel.getHeight()/2);
 
-        start.setX(gephaz.getX()-start.getWidth()*1.5f);
-        start.setY(getViewport().getWorldHeight()*0.65f - start.getHeight()/2);
+        logo.setPosition(getViewport().getWorldWidth()/2-logo.getWidth()/3,getViewport().getWorldHeight()-logo.getHeight()*1.1f);
+
+        gephaz.setPosition(getViewport().getWorldWidth()-gephaz.getWidth()*1.15f,getViewport().getWorldHeight()/2-gephaz.getHeight()/2-60);
+
+        start.setX(getViewport().getWorldWidth()*0.075f);
+        start.setY(getViewport().getWorldHeight()*0.59f - start.getHeight()/2);
 
         info.setY(start.getY() - info.getHeight()*1.2f);
-        info.setX(gephaz.getX()-info.getWidth()*1.5f);
+        info.setX(getViewport().getWorldWidth()*0.075f);
 
         options.setY(info.getY() - options.getHeight()*1.2f);
-        options.setX(gephaz.getX()-options.getWidth()*1.5f);
+        options.setX(getViewport().getWorldWidth()*0.075f);
 
         exit.setY(15);
         exit.setX(getViewport().getWorldWidth() - 15 - exit.getWidth());
@@ -148,11 +153,13 @@ public class MenuStage extends PrettyStage {
     @Override
     public void addActors() {
         addActor(bg);
-        addActor(logo);
+        addActor(penzActor);
+        addActor(penzLabel);
         addActor(start);
         addActor(info);
         addActor(options);
         addActor(exit);
         addActor(gephaz);
+        addActor(logo);
     }
 }

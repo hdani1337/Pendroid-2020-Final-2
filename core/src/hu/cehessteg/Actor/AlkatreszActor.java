@@ -15,7 +15,7 @@ public class AlkatreszActor extends OneSpriteStaticActor {
     private GameStage gameStage;
     public AlkatreszType type;
 
-    public float toresEsely = 1f;
+    public float toresEsely = 0.3f;
 
     public boolean isSelected;
 
@@ -29,7 +29,7 @@ public class AlkatreszActor extends OneSpriteStaticActor {
         if(Math.random() < toresEsely) torott = true;
         else torott = false;
         sprite.setTexture(game.getMyAssetManager().getTexture(getHash(type, torott)));
-        float scale = 180.0f/getHeight() ;
+        float scale = 180.0f/getWidth();
         setSize(180,scale*getHeight());
         setY(gameStage.szalagok.get(0).getY() + gameStage.szalagok.get(0).getHeight()/2 - this.getHeight()/2);
         setX(gameStage.getViewport().getWorldWidth()+125+new Random().nextInt(500));

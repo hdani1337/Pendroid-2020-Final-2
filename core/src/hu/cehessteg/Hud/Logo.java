@@ -8,7 +8,7 @@ import hu.csanyzeg.master.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 
 public class Logo extends OneSpriteStaticActor {
     //region AssetList
-    public static final String LOGO_TEXTURE = "pic/logos/cim.png";
+    public static final String LOGO_TEXTURE = "nev.png";
 
     public static AssetList assetList = new AssetList();
     static {
@@ -58,9 +58,9 @@ public class Logo extends OneSpriteStaticActor {
     @Override
     public void act(float delta) {
         super.act(delta);
-        setRotation(getRotation() + delta * speed);
+        /*setRotation(getRotation() + delta * speed);
         if (getRotation() >= 12 || getRotation() <= -12)
-            speed *= -1;
+            speed *= -1;*/
     }
     //endregion
 }

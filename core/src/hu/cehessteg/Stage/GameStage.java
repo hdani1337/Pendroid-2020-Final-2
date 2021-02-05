@@ -7,8 +7,8 @@ import hu.cehessteg.Actor.AlkatreszActor;
 import hu.cehessteg.Actor.AlkatreszType;
 import hu.cehessteg.Actor.BuilderActor;
 import hu.cehessteg.Actor.LadaActor;
+import hu.cehessteg.Actor.Stock;
 import hu.cehessteg.Actor.SzalagActor;
-import hu.cehessteg.SoundManager;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.ResponseViewport;
@@ -23,7 +23,7 @@ import static hu.cehessteg.TetrisGame.preferences;
 
 public class GameStage extends PrettySimpleStage {
 
-    public static int point = preferences.getInteger("coin");
+    public static long point = preferences.getLong("coin");
     public static boolean isPaused;
     public static boolean isGameOver;
 
@@ -45,11 +45,11 @@ public class GameStage extends PrettySimpleStage {
 
     @Override
     public void assignment() {
+        Stock.reset();
         if(difficulty == 0) difficulty = 2;
         hatter = new OneSpriteStaticActor(game,"hatter.png");
-        //builderActor = new BuilderActor(game,null);
+        builderActor = new BuilderActor(game,"szereles.png");
         random = new Random();
-        SoundManager.assign();
         isPaused = false;
         isGameOver = false;
         szalagok = new ArrayList<>();
@@ -65,6 +65,7 @@ public class GameStage extends PrettySimpleStage {
 
     @Override
     public void setSizes() {
+        builderActor.setSize(160,160);
         hatter.setSize(getViewport().getWorldWidth(),getViewport().getWorldHeight());
         for (LadaActor a : ladak){
             a.setSize(220,220);
@@ -73,8 +74,12 @@ public class GameStage extends PrettySimpleStage {
 
     @Override
     public void setPositions() {
+        ladak.get(0).setX(18);
+        ladak.get(0).setY(18);
+        builderActor.setPosition(16,getViewport().getWorldHeight()-16-builderActor.getHeight());
         for (int i = 1; i < ladak.size(); i++){
             ladak.get(i).setX(ladak.get(i-1).getX()+ladak.get(i-1).getWidth()+25);
+            ladak.get(i).setY(18);
         }
     }
 
@@ -91,6 +96,7 @@ public class GameStage extends PrettySimpleStage {
     @Override
     public void addActors() {
         addActor(hatter);
+        addActor(builderActor);
         for (SzalagActor a : szalagok) {
             addActor(a);
             a.setZIndex(10);
@@ -130,17 +136,7 @@ public class GameStage extends PrettySimpleStage {
                 a.setX(a.getX()-difficulty*2);
             }
         }
-    }
 
-    public void playSound(int id){
-        if(!muted){
-            if(id == 0 && SoundManager.clearSound != null){
-                //CLEAR
-                SoundManager.clearSound.play();
-            }else if(id == 1 && SoundManager.fallSound != null){
-                //FALL
-                SoundManager.fallSound.play();
-            }
-        }
+
     }
 }
