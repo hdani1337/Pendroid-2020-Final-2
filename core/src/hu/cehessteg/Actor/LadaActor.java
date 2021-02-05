@@ -48,7 +48,7 @@ public class LadaActor extends MyGroup {
                     gameStage.selectedActor.remove();
                     gameStage.point++;
                 }else{
-                    if(gameStage.selectedActor.type != null) {
+                    if(gameStage.selectedActor != null) {
                         if (LadaActor.this.type == gameStage.selectedActor.type && !gameStage.selectedActor.torott) {
                             switch (type) {
                                 case CPU:
