@@ -13,7 +13,7 @@ public class Computer {
         needRAM = 4;
         needGPU = 2;
         needPSU = 1;
-        needTimeInSec = 30;
+        needTimeInSec = 10;
     }
 
     public void build(){

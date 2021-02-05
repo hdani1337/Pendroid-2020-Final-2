@@ -17,10 +17,11 @@ import hu.csanyzeg.master.MyBaseClasses.Timers.TickTimerListener;
 import hu.csanyzeg.master.MyBaseClasses.Timers.Timer;
 
 import static hu.cehessteg.TetrisGame.muted;
+import static hu.cehessteg.TetrisGame.preferences;
 
 public class GameStage extends PrettySimpleStage {
 
-    public static int point;
+    public static int point = preferences.getInteger("coin");
     public static boolean isPaused;
     public static boolean isGameOver;
 
@@ -107,6 +108,7 @@ public class GameStage extends PrettySimpleStage {
                 AlkatreszActor actor = new AlkatreszActor(game,AlkatreszType.values()[random.nextInt(4)],GameStage.this);
                 alkatreszek.add(actor);
                 addActor(actor);
+                if(Math.random() <= 0.03f) point -= Math.random()*5;
             }
         }));
     }

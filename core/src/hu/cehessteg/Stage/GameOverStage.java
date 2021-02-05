@@ -158,13 +158,10 @@ public class GameOverStage extends PrettyStage {
     private float alpha;
     private boolean addedActors;
     private void makeStage(){
-        pontok.setText("Elért pontszámod: " + GameStage.point + "\nRekordod: "+highscore);
-        if(GameStage.point > highscore){
-            pontok.setText("Elért pontszámod: "+GameStage.point+"\nMegdöntötted a rekordod!");
-            highscore = GameStage.point;
-            preferences.putLong("highscore",highscore);
-            preferences.flush();
-        }
+        pontok.setText("Ennyi pénzed van: "+GameStage.point);
+        preferences.putInteger("coin",GameStage.point);
+        preferences.flush();
+
 
         setPositions();
         pontok.textLabel.setAlignment(Align.left);

@@ -1,5 +1,7 @@
 package hu.cehessteg.Actor;
 
+import hu.cehessteg.Stage.GameStage;
+
 public class Stock {
     public static int cpuCount;
     public static int gpuCount;
@@ -11,5 +13,6 @@ public class Stock {
         gpuCount -= computer.needGPU;
         ramCount -= computer.needRAM;
         psuCount -= computer.needPSU;
+        GameStage.point += 25;
     }
 }

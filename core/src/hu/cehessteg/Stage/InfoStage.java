@@ -55,14 +55,14 @@ public class InfoStage extends PrettyStage {
         textBg = new OneSpriteStaticActor(game,TEXTBOX_TEXTURE);
         infoLogo = new Logo(game, Logo.LogoType.INFO);
 
-        String infoText = "Ez az alkalmazás a Pendroid versenyre készült.\n" +
-                "Egy régi klasszikust dolgoztunk fel, a cím alapján\n" +
-                "nem kell részletesen bemutatni a játékot.\n" +
-                "Az irányítás húzással történik,\n" +
-                "balra, jobbra, vagy lefelé,\n" +
-                "koppintással pedig forgathatjuk a testet.\n" +
-                "A pálya mérete és nehézsége állítható.\n\n" +
-                "Jó játékot kíván a Céhessteg csapata!";
+        String infoText = "Ebben a játékban egy ipari munkás szerepét\n" +
+                "fogod betölteni, ahol annyi dolgod van egész nap,\n" +
+                "hogy számítógépeket szerelj össze a fizetésedért.\n" +
+                "Az alkatrészeket a helyes dobozba kell szortírozni,\n" +
+                "a törötteket pedig a kukába kell helyezni.\n" +
+                "Vigyázz, mert ha rossz helyre rakod, vagy kihagyod,\n" +
+                "pénzt fogsz rajta veszteni!\n\n" +
+                "Kellemes játékot kíván a Pendroid csapata!";
 
         text = new MyLabel(game, infoText, new Label.LabelStyle(game.getMyAssetManager().getFont(RETRO_FONT), Color.WHITE)) {
             @Override

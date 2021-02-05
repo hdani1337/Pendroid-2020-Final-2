@@ -91,7 +91,7 @@ public class PauseStage extends PrettyStage {
                     gameMusic.stop();
                 }
                 game.setScreenBackByStackPopWithPreloadAssets(new LoadingStage(game));
-                //preferences.putLong("coin", Coin.coin);
+                preferences.putLong("coin", GameStage.point);
                 preferences.flush();
             }
         });

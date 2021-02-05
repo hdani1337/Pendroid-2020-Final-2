@@ -54,6 +54,7 @@ public class MenuStage extends PrettyStage {
     private OneSpriteStaticActor options;
     private OneSpriteStaticActor exit;
     private OneSpriteStaticActor bg;
+    private OneSpriteStaticActor gephaz;
 
     private ArrayList<OneSpriteStaticActor> menuElements;
 
@@ -69,6 +70,7 @@ public class MenuStage extends PrettyStage {
         info = new OneSpriteStaticActor(game, INFOBUTTON_TEXTURE);
         options = new OneSpriteStaticActor(game, OPTIONSBUTTON_TEXTURE);
         exit = new OneSpriteStaticActor(game, EXITBUTTON_TEXTURE);
+        gephaz = new OneSpriteStaticActor(game, "buttons/gephaz.png");
 
         menuElements.add(start);
         menuElements.add(options);
@@ -82,20 +84,26 @@ public class MenuStage extends PrettyStage {
     public void setSizes() {
         exit.setSize(exit.getWidth()*0.5f,exit.getHeight()*0.5f);
         bg.setSize(getViewport().getWorldWidth(),getViewport().getWorldHeight());
+        gephaz.setSize(gephaz.getWidth()*0.85f,gephaz.getHeight()*0.85f);
+        start.setSize(start.getWidth()*0.6f,start.getHeight()*0.6f);
+        options.setSize(options.getWidth()*0.6f,options.getHeight()*0.6f);
+        info.setSize(info.getWidth()*0.6f,info.getHeight()*0.6f);
     }
 
     @Override
     public void setPositions() {
         logo.setPosition(getViewport().getWorldWidth()/2-logo.getWidth()/2,getViewport().getWorldHeight()-logo.getHeight()*1.5f);
 
-        start.setX(getViewport().getWorldWidth()/2 - start.getWidth()/2);
+        gephaz.setPosition(getViewport().getWorldWidth()-gephaz.getWidth()*1.15f,getViewport().getWorldHeight()/2-gephaz.getHeight()/2);
+
+        start.setX(gephaz.getX()-start.getWidth()*1.5f);
         start.setY(getViewport().getWorldHeight()*0.65f - start.getHeight()/2);
 
         info.setY(start.getY() - info.getHeight()*1.2f);
-        info.setX((getViewport().getWorldWidth()/2 - info.getWidth()/2));
+        info.setX(gephaz.getX()-info.getWidth()*1.5f);
 
         options.setY(info.getY() - options.getHeight()*1.2f);
-        options.setX((getViewport().getWorldWidth()/2 - options.getWidth()/2));
+        options.setX(gephaz.getX()-options.getWidth()*1.5f);
 
         exit.setY(15);
         exit.setX(getViewport().getWorldWidth() - 15 - exit.getWidth());
@@ -106,76 +114,30 @@ public class MenuStage extends PrettyStage {
         start.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                animation(start);
-                //if(!muted && kezdesHang != null) kezdesHang.play(1);
-                addTimer(new TickTimer(0.5f, false, new TickTimerListener(){
-                    @Override
-                    public void onTick(Timer sender, float correction) {
-                        super.onTick(sender, correction);
-                        game.setScreenWithPreloadAssets(GameScreen.class, new LoadingStage(game));
-                    }
-                }));
+                game.setScreenWithPreloadAssets(GameScreen.class, new LoadingStage(game));
             }
         });
 
         info.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                animation(info);
-                addTimer(new TickTimer(0.5f, false, new TickTimerListener(){
-                    @Override
-                    public void onTick(Timer sender, float correction) {
-                        super.onTick(sender, correction);
-                        game.setScreenWithPreloadAssets(InfoScreen.class, new LoadingStage(game));
-                    }
-                }));
+                game.setScreenWithPreloadAssets(InfoScreen.class, new LoadingStage(game));
             }
         });
 
         options.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                animation(options);
-                addTimer(new TickTimer(0.7f, false, new TickTimerListener(){
-                    @Override
-                    public void onTick(Timer sender, float correction) {
-                        super.onTick(sender, correction);
-                        game.setScreenWithPreloadAssets(OptionsScreen.class, new LoadingStage(game));
-                    }
-                }));
+                game.setScreenWithPreloadAssets(OptionsScreen.class, new LoadingStage(game));
             }
         });
 
         exit.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                for (OneSpriteStaticActor a : menuElements) {
-                    ((SimpleWorldHelper) a.getActorWorldHelper()).getBody().sizeToFixTime(0, 0, 0.5f, PositionRule.Center);
-                    ((SimpleWorldHelper) a.getActorWorldHelper()).getBody().colorToFixTime(0.5f, 1, 1, 1, 0);
-                }
-
-                /*if(!muted && kilepesHang != null){
-                    kilepesHang.play(1);
-                }*/
-                addTimer(new TickTimer(0.5f,false,new TickTimerListener(){
-                    @Override
-                    public void onStop(Timer sender) {
-                        super.onStop(sender);
-                        Gdx.app.exit();
-                    }
-                }));
+                Gdx.app.exit();
             }
         });
-    }
-
-    private void animation(OneSpriteStaticActor sender){
-        sender.setOrigintoCenter();
-        ((SimpleWorldHelper)sender.getActorWorldHelper()).getBody().sizeToFixTime(sender.getWidth()*1.5f,sender.getHeight()*1.5f,0.5f, PositionRule.Center);
-        ((SimpleWorldHelper)sender.getActorWorldHelper()).getBody().colorToFixTime(0.6f,1,1,1,0);
-        for (OneSpriteStaticActor a : menuElements)
-            if(a != sender) {
-                ((SimpleWorldHelper) a.getActorWorldHelper()).getBody().colorToFixTime(0.5f,1,1,1,0);
-            }
     }
 
     @Override
@@ -191,5 +153,6 @@ public class MenuStage extends PrettyStage {
         addActor(info);
         addActor(options);
         addActor(exit);
+        addActor(gephaz);
     }
 }

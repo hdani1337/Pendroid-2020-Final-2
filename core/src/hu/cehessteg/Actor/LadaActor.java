@@ -62,8 +62,8 @@ public class LadaActor extends MyGroup {
                                 Stock.psuCount++;
                                 break;
                         }
-                        gameStage.selectedActor.remove();
-                    }
+                    }else GameStage.point--;
+                    gameStage.selectedActor.remove();
                 }
                 gameStage.selectedActor = null;
             }
