@@ -19,8 +19,7 @@ public class AlkatreszActor extends OneSpriteStaticActor {
         this.type = type;
         setSize(180,(180.0f/getHeight())*getHeight());
         setY(gameStage.szalagok.get(0).getY() + gameStage.szalagok.get(0).getHeight()/2 - this.getHeight()/2);
-        setX(gameStage.getViewport().getWorldWidth()+new Random().nextInt(500));
-        System.out.println(gameStage.getViewport().getWorldWidth());
+        setX(gameStage.getViewport().getWorldWidth()+125+new Random().nextInt(500));
         addListeners();
     }
 
@@ -55,6 +54,9 @@ public class AlkatreszActor extends OneSpriteStaticActor {
         super.act(delta);
         setX(getX()-2);
         setZIndex(10000);
-        System.out.println(getX());
+        if(getX() < -getWidth()){
+            System.out.println("KIMENT BAZDMEG");
+            remove();
+        }
     }
 }

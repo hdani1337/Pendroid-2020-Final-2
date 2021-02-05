@@ -15,6 +15,7 @@ import hu.cehessteg.SoundManager;
 import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.OneSpriteStaticActor;
+import hu.csanyzeg.master.MyBaseClasses.Scene2D.PrettyStage;
 import hu.csanyzeg.master.MyBaseClasses.SimpleWorld.PositionRule;
 import hu.csanyzeg.master.MyBaseClasses.SimpleWorld.PrettySimpleStage;
 import hu.csanyzeg.master.MyBaseClasses.SimpleWorld.ShapeType;
@@ -30,7 +31,7 @@ import static hu.cehessteg.TetrisGame.muted;
 //TODO TEXTÚRÁK BEHELYETTESÍTÉSE HA KÉSZ LESZNEK
 //TODO ESETLEG VALAMI ANIMÁCIÓ A HÁTTÉRBE (KÁRTYÁK UGRÁLNAK, STB)
 
-public class MenuStage extends PrettySimpleStage {
+public class MenuStage extends PrettyStage {
     public static final String STARTBUTTON_TEXTURE = "buttons/play.png";
     public static final String OPTIONSBUTTON_TEXTURE = "buttons/options.png";
     public static final String INFOBUTTON_TEXTURE = "buttons/info.png";
@@ -75,23 +76,12 @@ public class MenuStage extends PrettySimpleStage {
         menuElements.add(exit);
         menuElements.add(info);
 
-        for (OneSpriteStaticActor a : menuElements) {
-            a.setActorWorldHelper(new SimpleWorldHelper(world,a, ShapeType.Rectangle, SimpleBodyType.Sensor));
-            a.setColor(0, 0, 0, 0);
-            ((SimpleWorldHelper) a.getActorWorldHelper()).getBody().colorToFixTime(1, 1, 1, 1, 1);
-        }
     }
 
     @Override
     public void setSizes() {
-        for (OneSpriteStaticActor a : menuElements)
-           if(a != logo)
-               a.setSize(a.getWidth()*0.01f,a.getHeight()*0.01f);
-
-        logo.setSize(logo.getWidth()*0.015f,logo.getHeight()*0.015f);
-        logo.setOrigintoCenter();
+        exit.setSize(exit.getWidth()*0.5f,exit.getHeight()*0.5f);
         bg.setSize(getViewport().getWorldWidth(),getViewport().getWorldHeight());
-        exit.setSize(exit.getWidth()*0.7f,exit.getHeight()*0.7f);
     }
 
     @Override
@@ -107,8 +97,8 @@ public class MenuStage extends PrettySimpleStage {
         options.setY(info.getY() - options.getHeight()*1.2f);
         options.setX((getViewport().getWorldWidth()/2 - options.getWidth()/2));
 
-        exit.setY(exit.getHeight()*0.055f);
-        exit.setX(getViewport().getWorldWidth() / 2 - exit.getWidth()/2);
+        exit.setY(15);
+        exit.setX(getViewport().getWorldWidth() - 15 - exit.getWidth());
     }
 
     @Override

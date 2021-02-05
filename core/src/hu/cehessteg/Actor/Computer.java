@@ -11,7 +11,7 @@ public class Computer {
     public Computer() {
         needCPU = 1;
         needRAM = 4;
-        needGPU = 1;
+        needGPU = 2;
         needPSU = 1;
         needTimeInSec = 30;
     }

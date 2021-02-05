@@ -5,6 +5,7 @@ import java.util.Random;
 
 import hu.cehessteg.Actor.AlkatreszActor;
 import hu.cehessteg.Actor.AlkatreszType;
+import hu.cehessteg.Actor.BuilderActor;
 import hu.cehessteg.Actor.LadaActor;
 import hu.cehessteg.Actor.SzalagActor;
 import hu.cehessteg.SoundManager;
@@ -29,12 +30,18 @@ public class GameStage extends PrettySimpleStage {
     public ArrayList<LadaActor> ladak;
     public ArrayList<AlkatreszActor> alkatreszek;
 
+    public BuilderActor builderActor;
+
+    private Random random;
+
     public GameStage(MyGame game) {
         super(new ResponseViewport(800),game);
     }
 
     @Override
     public void assignment() {
+        //builderActor = new BuilderActor(game,null);
+        random = new Random();
         SoundManager.assign();
         isPaused = false;
         isGameOver = false;
@@ -97,7 +104,7 @@ public class GameStage extends PrettySimpleStage {
             @Override
             public void onTick(Timer sender, float correction) {
                 super.onTick(sender, correction);
-                AlkatreszActor actor = new AlkatreszActor(game,AlkatreszType.values()[new Random().nextInt(4)],GameStage.this);
+                AlkatreszActor actor = new AlkatreszActor(game,AlkatreszType.values()[random.nextInt(4)],GameStage.this);
                 alkatreszek.add(actor);
                 addActor(actor);
             }

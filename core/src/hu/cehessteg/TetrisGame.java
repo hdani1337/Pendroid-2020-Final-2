@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import hu.cehessteg.Screen.GameScreen;
 import hu.cehessteg.Screen.IntroScreen;
+import hu.cehessteg.Screen.MenuScreen;
 import hu.cehessteg.Stage.LoadingStage;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 
@@ -32,7 +33,7 @@ public class TetrisGame extends MyGame {
 		super.create();
 		SoundManager.game = this;
 		setLoadingStage(new LoadingStage(this));
-		setScreen(new GameScreen(this));
+		setScreen(new MenuScreen(this));
 		try {
 			preferences = Gdx.app.getPreferences("tetrisSave");
 			muted = preferences.getBoolean("muted");
