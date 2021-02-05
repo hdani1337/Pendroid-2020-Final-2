@@ -47,7 +47,8 @@ public class LadaActor extends MyGroup {
                 if (gameStage.selectedActor != null) {
                     if (LadaActor.this.type == AlkatreszType.TRASH) {
                         gameStage.selectedActor.remove();
-                        gameStage.point++;
+                        if(gameStage.selectedActor.torott) gameStage.point++;
+                        else gameStage.point--;
                     } else {
 
                         if (LadaActor.this.type == gameStage.selectedActor.type && !gameStage.selectedActor.torott) {
