@@ -38,7 +38,6 @@ public class OptionsStage extends PrettyStage {
 
     private OneSpriteStaticActor backButton;
     private OneSpriteStaticActor bg;
-    private OptionSwitch muteButton;
     private Slider difficultySlider;
     private TextBox difficultyText;
 
@@ -57,7 +56,6 @@ public class OptionsStage extends PrettyStage {
         setBack = false;
         if(difficulty == 0) difficulty = 1;
         backButton = new OneSpriteStaticActor(game,BACKBUTTON_TEXTURE);
-        muteButton = new OptionSwitch(game, OptionSwitchType.MUTE);
         optionsLogo = new Logo(game, Logo.LogoType.OPTIONS);
 
         difficultyText = new TextBox(game,"Nehézség:\nNormál\n", TextBox.RETRO_FONT,1.25f);
@@ -94,9 +92,8 @@ public class OptionsStage extends PrettyStage {
     public void setPositions() {
         backButton.setPosition(16,16);
         optionsLogo.setPosition(getViewport().getWorldWidth()/2 - optionsLogo.getWidth()/2, getViewport().getWorldHeight() - optionsLogo.getHeight()*1.25f);
-        difficultySlider.setPosition(getViewport().getWorldWidth()/2-difficultySlider.getWidth()/2,getViewport().getWorldHeight()*0.425f);
+        difficultySlider.setPosition(getViewport().getWorldWidth()/2-difficultySlider.getWidth()/2,getViewport().getWorldHeight()*0.36f);
         difficultyText.setPosition(difficultySlider.getX() + difficultySlider.getWidth()/2-difficultyText.getWidth()/2,difficultySlider.getY()-20);
-        muteButton.setPosition(getViewport().getWorldWidth()/2-muteButton.getWidth()/2,getViewport().getWorldHeight()*0.625f);
     }
 
     @Override
@@ -125,7 +122,6 @@ public class OptionsStage extends PrettyStage {
         addActor(optionsLogo);
         addActor(difficultyText);
         addActor(difficultySlider);
-        addActor(muteButton);
         addActor(backButton);
     }
     //endregion
@@ -176,7 +172,6 @@ public class OptionsStage extends PrettyStage {
     private void setAlpha(){
         optionsLogo.setAlpha(alpha);
         backButton.setAlpha(alpha);
-        muteButton.setAlpha(alpha);
         difficultySlider.setColor(1,1,1,alpha);
         difficultyText.setAlpha(alpha);
     }

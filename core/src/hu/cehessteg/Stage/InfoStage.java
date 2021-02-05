@@ -82,7 +82,7 @@ public class InfoStage extends PrettyStage {
 
     @Override
     public void setPositions() {
-        back.setPosition(getViewport().getWorldWidth() - back.getWidth()-16,16);
+        back.setPosition(16,16);
         infoLogo.setPosition(getViewport().getWorldWidth()/2 - infoLogo.getWidth()/2,getViewport().getWorldHeight() - infoLogo.getHeight()*1.25f);
         text.setAlignment(Align.center);
         text.setPosition(getViewport().getWorldWidth()/2-text.getWidth()/2,getViewport().getWorldHeight()/2-text.getHeight()/2);

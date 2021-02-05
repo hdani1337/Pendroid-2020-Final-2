@@ -112,7 +112,7 @@ public class AlkatreszActor extends OneSpriteStaticActor {
     public void act(float delta) {
         super.act(delta);
         if(!GameStage.isPaused && !GameStage.isGameOver) {
-            setX(getX() - difficulty * 2);
+            setX(getX() - difficulty * 3);
             setZIndex(10000);
             if (getX() < -getWidth()) {
                 GameStage.point--;

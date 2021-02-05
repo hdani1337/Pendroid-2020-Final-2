@@ -133,7 +133,7 @@ public class GameStage extends PrettySimpleStage {
         if(point < 0) isGameOver = true;
         if(!isPaused && !isGameOver) {
             for (SzalagActor a : szalagok) {
-                a.setX(a.getX()-difficulty*2);
+                a.setX(a.getX()-difficulty*3);
             }
         }
 
